@@ -1,5 +1,5 @@
 ### Date created
-The project is analysing the bike share stats of Washington, Chicago and New York City.
+2020-11-28
 
 ### Project Title
 Bikeshare Project by Moritz
