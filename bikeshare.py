@@ -28,8 +28,8 @@ def get_filters():
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     # TO DO: get user input for month (all, january, february, ... , june)
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-
     # listing all possible inputs of cities, months and days
+
     cities = ['all_cities', 'chicago', 'new york city', 'washington']
     months = ['All', 'January', 'February', 'March', 'April', 'May', 'June']
     days = ['All', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -196,7 +196,7 @@ def main():
         df = load_data(city, month, day)
 
         if df.empty:
-            print('Your selection leads to an empty DataFrame. Please try again!')
+            print('Your selection leads to an empty DataFrame. Please try again with different inputs!')
         else:
             time_stats(df)
             station_stats(df)
