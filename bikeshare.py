@@ -7,7 +7,7 @@ import numpy as np
 df3 = pd.read_csv("washington.csv")
 df3['Trip Duration'] = df3['Trip Duration'].astype(int)
 df3['Gender'] = 'Unknown'
-df3['Birth Year'] = np.nan 
+df3['Birth Year'] = np.nan
 df3.to_csv(r'washington2.csv')
 
 CITY_DATA = { 'chicago': 'chicago.csv',
@@ -28,7 +28,7 @@ def get_filters():
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     # TO DO: get user input for month (all, january, february, ... , june)
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-    
+
     # listing all possible inputs
     cities = ['all_cities', 'chicago', 'new york city', 'washington']
     months = ['All', 'January', 'February', 'March', 'April', 'May', 'June']
@@ -67,32 +67,32 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     # import data and fill nan values
     df = pd.read_csv(CITY_DATA[city])
     df['Gender'] = df['Gender'].fillna('Unknown')
     df['Birth Year'] = df['Birth Year'].fillna(np.nan)
-    
+
     # Create months and weekdays as new columns to filter
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['month_name'] = df['Start Time'].dt.month.apply(lambda x: {1: 'January',  2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June'}[x])
     df['weekday'] = df['Start Time'].dt.weekday_name
-    
+
     # set filtersfor months, days or "all"
     if month != 'All':
         cond1 = (df['month_name'] == month)
-        df = df[cond1]  
-    
+        df = df[cond1]
+
     if day != 'All':
         cond2 = (df['weekday'] == day)
         df = df[cond2]
-    
+
     count_row = df.shape[0]
     print('In your selected timeframe {} rentals occurred.\n'.format(count_row))
-    return df        
-    
+    return df
+
 def time_stats(df):
-    
+
     """Displays statistics on the most frequent times of travel."""
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
@@ -168,7 +168,7 @@ def user_stats(df):
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
-    
+
     # TO DO: Display counts of user types
     user_count = df['User Type'].value_counts()
     print('The user segments are:\n {}.'.format(user_count))
@@ -194,15 +194,15 @@ def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-        
+
         if df.empty:
-            print('Your selection leads to an empty DataFrame. Please try again!')
+            print('Your selection leads to an empty DataFrame. Please try again with different inputs!')
         else:
             time_stats(df)
             station_stats(df)
             trip_duration_stats(df)
             user_stats(df)
-    
+
         display_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or no\n')
         start_loc = 0
         while display_data == 'yes':
@@ -214,6 +214,6 @@ def main():
                 if restart.lower() != 'yes':
                     break
                 break
-                
+
 if __name__ == "__main__":
 	main()
